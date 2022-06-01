@@ -53,6 +53,9 @@ type Config struct {
 
 	// Token is the authentication token provided by Mezmo.
 	IngestKey string `mapstructure:"ingest_key"`
+
+	// Hostname is the name of the source host.
+	Hostname string `mapstructure:"hostname"`
 }
 
 // returns default http client settings

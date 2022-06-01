@@ -5,7 +5,8 @@ This exporter supports sending OpenTelemetry log data to [LogDNA (Mezmo)](https:
 # Configuration options:
 
 - `ingest_url` (optional): Specifies the URL to send ingested logs to.  If not specified, will default to `https://logs.logdna.com/log/ingest`.
-- `ingest_key` (required): Ingestion key used to send log data to LogDNA.  See [Ingestion Keys](https://docs.logdna.com/docs/ingestion-key) for more details.
+- `ingest_key` (required): Ingestion key used to send log data to Mezmo.  See [Ingestion Keys](https://docs.logdna.com/docs/ingestion-key) for more details.
+- `hostname` (optional): Defines the hostname used to identify the source of logs data in the Mezmo system. If not specified, will default `otel-collector`.
 
 # Example:
 ## Simple Log Data
@@ -21,6 +22,7 @@ exporters:
   mezmo:
     ingest_url: "https://logs.logdna.com/log/ingest"
     ingest_key: "00000000000000000000000000000000"
+    hostname: "collector.example.com"
 
 service:
   pipelines:

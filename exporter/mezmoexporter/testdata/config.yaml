@@ -10,6 +10,7 @@ exporters:
   mezmo/allsettings:
     ingest_url: "https://alternate.logdna.com/log/ingest"
     ingest_key: "1234509876"
+    hostname: "foo.example.com"
     retry_on_failure:
       enabled: false
       initial_interval: 99s

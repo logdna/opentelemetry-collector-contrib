@@ -46,6 +46,7 @@ func TestLoadDefaultConfig(t *testing.T) {
 	defaultCfg := factory.CreateDefaultConfig().(*Config)
 	defaultCfg.IngestURL = defaultIngestURL
 	defaultCfg.IngestKey = "00000000000000000000000000000000"
+	defaultCfg.Hostname = ""
 	assert.Equal(t, defaultCfg, e)
 }
 
@@ -82,6 +83,7 @@ func TestLoadAllSettingsConfig(t *testing.T) {
 		},
 		IngestURL: "https://alternate.logdna.com/log/ingest",
 		IngestKey: "1234509876",
+		Hostname:  "foo.example.com",
 	}
 	assert.Equal(t, &expectedCfg, e)
 }

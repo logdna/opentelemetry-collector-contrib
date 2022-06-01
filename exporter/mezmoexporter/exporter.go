@@ -33,6 +33,7 @@ type mezmoExporter struct {
 	settings        component.TelemetrySettings
 	client          *http.Client
 	userAgentString string
+	sourceHostname  string
 	wg              sync.WaitGroup
 }
 
@@ -49,10 +50,16 @@ type MezmoLogBody struct {
 }
 
 func newLogsExporter(config *Config, settings component.TelemetrySettings, buildInfo component.BuildInfo) *mezmoExporter {
+	hostname := config.Hostname
+	if hostname == "" {
+		hostname = "otel-collector"
+	}
+
 	var e = &mezmoExporter{
 		config:          config,
 		settings:        settings,
 		userAgentString: fmt.Sprintf("mezmo-otel-exporter/%s", buildInfo.Version),
+		sourceHostname:  hostname,
 	}
 	return e
 }
@@ -150,10 +157,7 @@ func (m *mezmoExporter) logDataToMezmo(ld plog.Logs) error {
 }
 
 func (m *mezmoExporter) sendLinesToMezmo(post string) (errs error) {
-	// TODO When the Mezmo backend requirement to have a `hostname` value in the URI is removed, this hostname will no longer be needed.
-	var hostname = "otel"
-
-	url := fmt.Sprintf("%s?hostname=%s", m.config.IngestURL, hostname)
+	url := fmt.Sprintf("%s?hostname=%s", m.config.IngestURL, m.sourceHostname)
 
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer([]byte(post)))
 	req.Header.Add("Accept", "application/json")
