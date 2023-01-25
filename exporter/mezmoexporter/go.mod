@@ -1,4 +1,4 @@
-module github.com/open-telemetry/opentelemetry-collector-contrib/exporter/mezmoexporter
+module github.com/logdna/opentelemetry-collector-contrib/exporter/mezmoexporter
 
 go 1.18
 
